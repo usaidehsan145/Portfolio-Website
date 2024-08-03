@@ -176,7 +176,7 @@ const Hero = () => {
                   fontWeight: 'bold',
                   fontSize: { xs: '1.75rem', sm: '2rem', md: '3.5rem', lg: '5rem' },
                   marginBottom: '20px',
-                  marginTop: { xs: '60px', sm: '30px', md: '30px' }, // Adjust margin-top based on screen size
+                  marginTop: { xs: '40px', sm: '30px', md: '30px' }, // Adjust margin-top based on screen size
                   background: 'linear-gradient(45deg, #BB86FC 30%, #03DAC6 90%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
