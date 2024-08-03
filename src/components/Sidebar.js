@@ -90,7 +90,7 @@ const Sidebar = ({ open, onClose }) => {
         <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'center', mb: 2 }}>
           <Button
             startIcon={<GitHubIcon />}
-            href="https://github.com/yourusername"
+            href="https://github.com/usaidehsan145"
             target="_blank"
             rel="noopener noreferrer"
             sx={{
