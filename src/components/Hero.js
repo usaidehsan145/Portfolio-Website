@@ -85,20 +85,20 @@ const HeroImage = styled(Box)(({ theme }) => ({
     zIndex: 0,
   },
   '& img': {
-  width: '80%',
-  height: 'auto',
-  maxHeight: '80%',
-  objectFit: 'contain',
-  borderRadius: '10px',
-  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-  position: 'relative',
-  zIndex: 1,
-  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out',
-  '&:hover': {
-    transform: 'scale(1.05)',
-    boxShadow: '0 16px 48px 0 rgba(31, 38, 135, 0.37)',
+    width: '80%',
+    height: 'auto',
+    maxHeight: '80%',
+    objectFit: 'contain',
+    borderRadius: '10px',
+    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+    position: 'relative',
+    zIndex: 1,
+    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out',
+    '&:hover': {
+      transform: 'scale(1.05)',
+      boxShadow: '0 16px 48px 0 rgba(31, 38, 135, 0.37)',
+    },
   },
-},
 }));
 
 const BaseButton = styled(Button)(({ theme }) => ({
@@ -176,7 +176,7 @@ const Hero = () => {
                   fontWeight: 'bold',
                   fontSize: { xs: '1.75rem', sm: '2rem', md: '3.5rem', lg: '5rem' },
                   marginBottom: '20px',
-                  marginTop: '30px',
+                  marginTop: { xs: '60px', sm: '30px', md: '30px' }, // Adjust margin-top based on screen size
                   background: 'linear-gradient(45deg, #BB86FC 30%, #03DAC6 90%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
