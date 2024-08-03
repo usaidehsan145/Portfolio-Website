@@ -206,8 +206,8 @@ const Navbar = () => {
               sx={{
                 flexGrow: 1,
                 display: { xs: 'inline-flex', md: 'none' },
-                alignItems: 'right',
-                justifyContent: 'right',
+                alignItems: 'center',
+                justifyContent: 'center',
                 backgroundColor: 'rgba(0, 0, 0, 0.2)',
                 padding: '8px',
                 marginLeft: '5rem',
