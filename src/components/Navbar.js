@@ -210,7 +210,7 @@ const Navbar = () => {
                 justifyContent: 'right',
                 backgroundColor: 'rgba(0, 0, 0, 0.2)',
                 padding: '8px',
-                marginLeft: '4.5rem',
+                marginLeft: '5rem',
                 borderRadius: '8px',
               }}
             >
