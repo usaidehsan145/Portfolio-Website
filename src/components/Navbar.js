@@ -28,12 +28,18 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   height: '80px',
 }));
 
-const StyledToolbar = styled(Toolbar)({
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   height: '100%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-});
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  [theme.breakpoints.down('md')]: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
+}));
 
 const StyledButton = styled(Button)(({ theme }) => ({
   color: theme.palette.text.primary,
@@ -113,6 +119,18 @@ const Cursor = styled('span')(({ theme }) => ({
   },
 }));
 
+const MenuButton = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  background: 'rgba(255, 255, 255, 0.1)', // Semi-transparent background
+  borderRadius: '12px', // Rounded corners
+  padding: '8px',
+  transition: 'background 0.3s ease, transform 0.3s ease',
+  '&:hover': {
+    background: 'rgba(255, 255, 255, 0.2)', // Slightly more visible on hover
+    transform: 'scale(1.1)', // Slight scale effect on hover
+  },
+}));
+
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -172,23 +190,39 @@ const Navbar = () => {
 
             {/* Mobile Menu Icon */}
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
+              <MenuButton
                 size="large"
                 aria-label="menu"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleToggleSidebar}
-                color="inherit"
               >
                 <MenuIcon />
-              </IconButton>
+              </MenuButton>
             </Box>
 
             {/* Mobile Text */}
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, alignItems: 'center', justifyContent: 'center' ,backgroundColor: 'rgba(0, 0, 0, 0.2)',padding: '8px',borderRadius: '8px'}}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: 'inline-flex', md: 'none' },
+                alignItems: 'right',
+                justifyContent: 'right',
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                padding: '8px',
+                marginLeft: '4.5rem',
+                borderRadius: '8px',
+              }}
+            >
               <Typography
                 variant="body2"
-                sx={{ fontSize: '0.75rem', color: '#bdbdbd', textAlign: 'center', fontFamily: '"Source Code Pro", monospace', fontSize: '0.65rem', }}
+                sx={{
+                  fontSize: '0.75rem',
+                  color: '#bdbdbd',
+                  textAlign: 'center',
+                  fontFamily: '"Source Code Pro", monospace',
+                  fontSize: '0.65rem',
+                }}
               >
                 {'// Initialize developer'}
                 <br />
@@ -235,6 +269,8 @@ const Navbar = () => {
           </StyledToolbar>
         </Container>
       </StyledAppBar>
+
+      {/* Sidebar */}
       <Sidebar open={sidebarOpen} onClose={handleCloseSidebar} />
     </>
   );
