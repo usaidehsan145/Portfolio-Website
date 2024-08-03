@@ -1,11 +1,12 @@
-import React from 'react';
-import { Box, Container, Typography, IconButton } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Container, Typography, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/system';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Slider from 'react-slick';
 import CodeBackground from './CodeBackground';
+import PaginationDots from './ProjectPaginationDots'; // Import PaginationDots
 
 import NotaryImg from '../assets/notary.jpg';
 import EcgImg from '../assets/ecg.jpg';
@@ -14,7 +15,7 @@ import RealEstateImg from '../assets/estate.jpg';
 import EncryptImg from '../assets/encryption.jpg';
 import ChurnImg from '../assets/churn.jpg';
 import SpamImg from '../assets/spam.png';
-import WeatherImg from '../assets/weather.jpg'
+import WeatherImg from '../assets/weather.jpg';
 
 // Import slick carousel CSS
 import "slick-carousel/slick/slick.css";
@@ -119,6 +120,9 @@ const SliderArrow = styled(IconButton)(({ theme }) => ({
   '&.slick-next': {
     right: -40,
   },
+  [theme.breakpoints.down('sm')]: {
+    display: 'none', // Hide arrows on small screens if necessary
+  },
 }));
 
 const SliderContainer = styled(Box)(({ theme }) => ({
@@ -202,14 +206,24 @@ const PrevArrow = ({ onClick }) => (
 );
 
 const Projects = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideCount, setSlideCount] = useState(projects.length);
+
+  const handleAfterChange = (index) => {
+    setCurrentSlide(index);
+  };
+
   const settings = {
-    dots: true,
+    dots: !isMobile, // Hide dots on mobile devices
     infinite: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    afterChange: handleAfterChange,
     responsive: [
       {
         breakpoint: 1024,
@@ -230,30 +244,41 @@ const Projects = () => {
     <ProjectsSection id="projects">
       <CodeBackground />
       <Container maxWidth="lg">
-        <Typography variant="h2" align="center" gutterBottom sx={{ color: 'primary.main', mb: 6, fontFamily: 'Source Code Pro, monospace' }}>
+        <Typography variant="h2" align="center" gutterBottom sx={{ color: 'primary.main', mb: 6, fontFamily: 'Source Code Pro, monospace',fontSize: {
+      xs: '2.5rem', // Adjust size for mobile devices
+      sm: '2.5rem',   // Adjust size for small screens
+      md: '2.5rem', // Adjust size for medium screens and above
+      lg: '3rem',   // Adjust size for large screens
+      xl: '3.5rem'  // Adjust size for extra-large screens
+    } }}>
           My Projects
         </Typography>
-        <Box sx={{ mx: { xs: 2, md: 4 } }}>
+        <SliderContainer>
           <Slider {...settings}>
             {projects.map((project) => (
-              <ProjectCard key={project.id}>
-                <ProjectContent sx={{ backgroundImage: `url(${project.image})` }}>
-                  <ProjectTitle variant="h6">{project.title}</ProjectTitle>
-                  <ProjectDescription variant="body2">{project.description}</ProjectDescription>
-                  <GithubIconButton
-                    className="github-icon"
-                    aria-label="github link"
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
+              <Box key={project.id}>
+                <ProjectCard>
+                  <ProjectContent
+                    sx={{ backgroundImage: `url(${project.image})` }}
                   >
-                    <GitHubIcon />
-                  </GithubIconButton>
-                </ProjectContent>
-              </ProjectCard>
+                    <ProjectTitle variant="h6">{project.title}</ProjectTitle>
+                    <ProjectDescription>{project.description}</ProjectDescription>
+                    <GithubIconButton
+                      className="github-icon"
+                      component="a"
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <GitHubIcon />
+                    </GithubIconButton>
+                  </ProjectContent>
+                </ProjectCard>
+              </Box>
             ))}
           </Slider>
-        </Box>
+        </SliderContainer>
+        {isMobile && <PaginationDots currentSlide={currentSlide} slideCount={slideCount} />}
       </Container>
     </ProjectsSection>
   );

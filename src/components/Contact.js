@@ -146,7 +146,13 @@ const ContactSection = () => {
               position: 'relative', 
               zIndex: 1,
               fontFamily: "'Courier New', monospace",
-              fontSize: { xs: 'h5.fontSize', sm: 'h3.fontSize' },
+              fontSize: {
+                xs: '2rem', // Adjust size for mobile devices
+                sm: '2.5rem',   // Adjust size for small screens
+                md: '2.5rem', // Adjust size for medium screens and above
+                lg: '3rem',   // Adjust size for large screens
+                xl: '3.5rem'  // Adjust size for extra-large screens
+              },
             }}
           >
             Get In Touch

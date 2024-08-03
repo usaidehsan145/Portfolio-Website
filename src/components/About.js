@@ -111,11 +111,22 @@ const About = () => {
               transition={{ duration: 0.8 }}
             >
               <Typography
-                variant="h2"
-                gutterBottom
-                sx={{ color: 'primary.main', fontFamily: 'Source Code Pro, monospace', fontWeight: 'bold' }}
-              >
-                Who is Muhammad Usaid
+  variant="h2"
+  gutterBottom
+  sx={{
+    color: 'primary.main',
+    fontFamily: 'Source Code Pro, monospace',
+    fontWeight: 'bold',
+    fontSize: {
+      xs: '2rem', // Adjust size for mobile devices
+      sm: '2.5rem',   // Adjust size for small screens
+      md: '2.5rem', // Adjust size for medium screens and above
+      lg: '3rem',   // Adjust size for large screens
+      xl: '3.5rem'  // Adjust size for extra-large screens
+    }
+  }}
+>
+                Who is Muhammad Usaid?
               </Typography>
               <Typography
                 variant="body1"
@@ -245,7 +256,13 @@ const About = () => {
               <Typography
                 variant="h4"
                 gutterBottom
-                sx={{ color: 'primary.main', fontFamily: 'Source Code Pro, monospace', fontWeight: 'bold' ,marginBottom: 3 }}
+                sx={{ color: 'primary.main', fontFamily: 'Source Code Pro, monospace', fontWeight: 'bold' ,marginBottom: 3,fontSize: {
+                  xs: '2rem', // Adjust size for mobile devices
+                  sm: '2rem',   // Adjust size for small screens
+                  md: '2rem', // Adjust size for medium screens and above
+                  lg: '2.5rem',   // Adjust size for large screens
+                  xl: '2.8rem'  // Adjust size for extra-large screens
+                } }}
               >
                 Technologies
               </Typography>

@@ -7,18 +7,23 @@ import StorageIcon from '@mui/icons-material/Storage';
 import LanguageIcon from '@mui/icons-material/Language';
 import BuildIcon from '@mui/icons-material/Build';
 import SkillDetail from './SkillDetail';
-import AnimatedBackground from './AnimatedBackgrounds';
+import AnimatedBackground from './AnimatedBackground';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import PaginationDots from './PaginationDots';
 
 const SkillsContainer = styled(Box)(({ theme }) => ({
   minHeight: '100vh',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center', // Center items vertically
-  alignItems: 'center',     // Center items horizontally
+  justifyContent: 'center',
+  alignItems: 'center',
   padding: theme.spacing(10, 0),
   position: 'relative',
+  marginBottom: theme.spacing(-8), // Default margin
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: theme.spacing(-16), // Reduced margin for mobile devices
+  },
 }));
 
 const SkillCard = styled(motion.div)(({ theme }) => ({
@@ -34,7 +39,6 @@ const SkillCard = styled(motion.div)(({ theme }) => ({
   boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
   border: '1px solid rgba(255, 255, 255, 0.18)',
   cursor: 'pointer',
-  marginBottom: '-100px',
 }));
 
 const OverlayContainer = styled(Box)(({ theme }) => ({
@@ -99,16 +103,13 @@ const Skills = () => {
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [isFirstAppearance, setIsFirstAppearance] = useState(true);
   const [swiperInstance, setSwiperInstance] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (selectedSkill) {
       setIsFirstAppearance(false);
     }
   }, [selectedSkill]);
-
-  const handleClose = () => {
-    setSelectedSkill(null);
-  };
 
   useLayoutEffect(() => {
     // Force Swiper to update on initial load
@@ -117,9 +118,15 @@ const Skills = () => {
     }
   }, [swiperInstance]);
 
+  const handleClose = () => {
+    setSelectedSkill(null);
+  };
+
   const handleSwiper = (swiper) => {
-    console.log('Swiper instance:', swiper);
     setSwiperInstance(swiper);
+    swiper.on('slideChange', () => {
+      setActiveIndex(swiper.activeIndex);
+    });
   };
 
   const isMobile = window.innerWidth <= 768;
@@ -132,42 +139,51 @@ const Skills = () => {
           variant="h2"
           align="center"
           gutterBottom
-          sx={{ color: 'primary.main', mt: -20, mb: 8, fontFamily: 'Source Code Pro, monospace' }}
+          sx={{ color: 'primary.main', mt: -20, mb: 8, fontFamily: 'Source Code Pro, monospace',fontSize: {
+            xs: '2.5rem', // Adjust size for mobile devices
+            sm: '2.5rem',   // Adjust size for small screens
+            md: '2.5rem', // Adjust size for medium screens and above
+            lg: '3rem',   // Adjust size for large screens
+            xl: '3.5rem'  // Adjust size for extra-large screens
+          } }}
         >
           My Skills
         </Typography>
         <Grid container spacing={4} justifyContent="center" alignItems="center">
           <Grid item xs={12} md={selectedSkill ? 6 : 12}>
             {isMobile ? (
-              <Swiper
-                spaceBetween={10}
-                slidesPerView={1}
-                onSwiper={handleSwiper}
-                style={{ width: '100%' }}
-              >
-                {skillCategories.map((category) => (
-                  <SwiperSlide key={category.name}>
-                    <SkillCard
-                      onClick={() => setSelectedSkill(category)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      layout
-                      transition={{
-                        layout: { duration: 0.6, type: 'spring' },
-                        scale: { duration: 0.3 },
-                      }}
-                    >
-                      {category.icon}
-                      <Typography
-                        variant="subtitle1"
-                        sx={{ mt: 2, textAlign: 'center', fontFamily: 'Source Code Pro, monospace' }}
+              <>
+                <Swiper
+                  spaceBetween={10}
+                  slidesPerView={1}
+                  onSwiper={handleSwiper}
+                  style={{ width: '100%' }}
+                >
+                  {skillCategories.map((category) => (
+                    <SwiperSlide key={category.name}>
+                      <SkillCard
+                        onClick={() => setSelectedSkill(category)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        layout
+                        transition={{
+                          layout: { duration: 0.6, type: 'spring' },
+                          scale: { duration: 0.3 },
+                        }}
                       >
-                        {category.name}
-                      </Typography>
-                    </SkillCard>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+                        {category.icon}
+                        <Typography
+                          variant="subtitle1"
+                          sx={{ mt: 2, textAlign: 'center', fontFamily: 'Source Code Pro, monospace' }}
+                        >
+                          {category.name}
+                        </Typography>
+                      </SkillCard>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <PaginationDots slides={skillCategories} activeIndex={activeIndex} />
+              </>
             ) : (
               <Grid container spacing={3} justifyContent="center">
                 {skillCategories.map((category) => (

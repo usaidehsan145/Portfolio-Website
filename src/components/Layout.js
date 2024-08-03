@@ -1,6 +1,8 @@
-import React from 'react';
+// src/components/Layout.js
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import Navbar from './Navbar';
+import Preloader from './Preloader';
 
 const theme = createTheme({
   palette: {
@@ -46,11 +48,26 @@ const theme = createTheme({
 });
 
 const Layout = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate an async action (e.g., fetching data)
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000); // Adjust the delay as needed
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Navbar />
-      {children}
+      {isLoading ? <Preloader /> : (
+        <>
+          <Navbar />
+          {children}
+        </>
+      )}
     </ThemeProvider>
   );
 };
