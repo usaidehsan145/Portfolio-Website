@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Drawer, List, ListItem, Button, Box, useTheme } from '@mui/material';
 import { styled } from '@mui/system';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -6,13 +6,16 @@ import { Link } from 'react-scroll';
 
 const SidebarContainer = styled(Box)(({ theme }) => ({
   width: 250,
-  backgroundColor: theme.palette.background.default,
+  background: 'rgba(30, 30, 30, 0.8)',  // Slightly more opaque background
+  backdropFilter: 'blur(12px)',            // Increased blur effect
+  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.3)',  // Slightly more pronounced shadow
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
   padding: theme.spacing(2),
   position: 'relative',
   overflowY: 'auto',
+  overflow: 'hidden',  // Hide overflowing content
   transition: 'transform 0.3s ease',
 }));
 
@@ -44,8 +47,9 @@ const SidebarButton = styled(Button)(({ theme }) => ({
 
 const Sidebar = ({ open, onClose }) => {
   const theme = useTheme();
+  const sidebarRef = useRef(null);
 
-  // Close sidebar when scrolling
+  // Close sidebar when scrolling or clicking outside
   useEffect(() => {
     const handleScroll = () => {
       if (open) {
@@ -53,9 +57,18 @@ const Sidebar = ({ open, onClose }) => {
       }
     };
 
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [open, onClose]);
 
@@ -71,10 +84,11 @@ const Sidebar = ({ open, onClose }) => {
         '& .MuiDrawer-paper': {
           width: 250,
           boxSizing: 'border-box',
+          background: 'transparent',  // Transparent drawer background
         },
       }}
     >
-      <SidebarContainer>
+      <SidebarContainer ref={sidebarRef}>
         <List>
           {['About', 'Skills', 'Projects', 'Contact'].map((page) => (
             <ListItem button key={page} onClick={onClose}>
