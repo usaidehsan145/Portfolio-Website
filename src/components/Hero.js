@@ -101,6 +101,9 @@ const HeroImage = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     marginTop: '30px', // Move the image further up on small screens
+    '& img': {
+      width: '80%', // Reduce the image size on small screens
+    },
   },
 }));
 
