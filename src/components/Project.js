@@ -12,9 +12,9 @@ import NotaryImg from '../assets/notary.jpg';
 import EcgImg from '../assets/ecg.jpg';
 import RpsImg from '../assets/rps.jpg';
 import RealEstateImg from '../assets/estate.jpg';
-import EncryptImg from '../assets/encryption.jpg';
-import ChurnImg from '../assets/churn.jpg';
-import SpamImg from '../assets/spam.png';
+import EncryptImg from '../assets/encryption.png';
+import ChurnImg from '../assets/churn.png';
+import SpamImg from '../assets/spam.jpg';
 import WeatherImg from '../assets/weather.jpg';
 
 // Import slick carousel CSS
