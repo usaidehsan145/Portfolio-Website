@@ -330,7 +330,7 @@ const ContactSection = () => {
                 </Box>
                 <Box>
       <Typography variant="h5" gutterBottom sx={{ color: 'primary.main', fontFamily: "'Courier New', monospace", mb:4 }}>
-        Follow Us
+        Follow Me
       </Typography>
       <Box sx={{ display: 'flex', gap: 3.5 }}>
         <IconButton color="primary" href="https://www.linkedin.com/in/muhammad-usaid-029b8b264/" target="_blank" aria-label="LinkedIn" sx={shakeAnimation}>
