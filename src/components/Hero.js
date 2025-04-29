@@ -4,7 +4,7 @@ import { styled } from '@mui/system';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import GetAppIcon from '@mui/icons-material/GetApp';
-import resumeFile from '../uploads/your_resume.pdf';
+import resumeFile from '../uploads/Muhammad_Usaid_CV.pdf';
 import { Link } from 'react-scroll';
 import ProfileImg from '../assets/profile.png';
 
