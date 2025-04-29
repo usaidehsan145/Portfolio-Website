@@ -233,7 +233,7 @@ const Hero = () => {
                   whileTap={{ scale: 0.95 }}
                   onClick={handleDownloadResume}
                 >
-                  Get Resume
+                  Get CV
                 </MotionResumeButton>
               </ButtonContainer>
             </motion.div>
